@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/Ramya0888/DevOpsLabExam'  
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building the code...'
+            
+                bat ' javac Ex1.java'   
+               
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+               
+                bat 'echo Test Passed'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+              bat 'java Ex1'
+                bat 'echo Deployment Done'
+            }
+        }
+    }
+    post {
+        success { echo 'Pipeline completed successfully!' }
+        failure { echo 'Pipeline failed!' }
+    }
+}
